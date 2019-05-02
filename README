@@ -40,3 +40,5 @@ Build with:
 Start container with:
 
     sudo docker run -p 5000:5000 sandbox-es
+
+Then use as explain at "Use" chapter
