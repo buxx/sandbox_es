@@ -4,7 +4,7 @@
 
 Start elastic search thought docker with:
 
-    docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.0.0
+    docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "cluster.routing.allocation.disk.threshold_enabled=false" elasticsearch:7.0.0
 
 * Create virtualenv (python3)
 * pip install -r requirements.txt
@@ -19,9 +19,17 @@ Install httpie with
 
     pip install httpie
 
-Post documents (id is optional and used to update id exist):
+Post documents (id is optional):
 
     http :5000 id=42 title=doc content="my doc content is awesome"
+
+Update entire document:
+
+    http :5000 id=42 title=doc2 content="my doc2 content is awesome"
+
+Update part of document:
+
+    http PATCH :5000 id=42 title="new doc2 title"
 
 Get all index documents:
 
@@ -29,7 +37,7 @@ Get all index documents:
 
 Make a search (search in title and content with "match" strategy)
 
-    http ":5000?search=doc"
+    http ":5000?search=doç"
 
 # Docker image
 
