@@ -26,11 +26,15 @@ def post():
 @app.route("/")
 def get():
     search = request.args.get("search")
+    # Add wildcard at end of each word (only at end for performances)
+    search_string = ' '.join(map(lambda w: w+'*', search.split(' ')))
+    print("search for: {}".format(search_string))
+
     if search:
         query = {
            "query": {
-              "multi_match": {
-                 "query": search,
+              "query_string": {
+                 "query": search_string,
                  "fields": ["title", "content"]
               }
            }
